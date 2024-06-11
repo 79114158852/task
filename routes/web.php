@@ -13,6 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::group(
+    [
+        'prefix' => '/{city?}',
+        'middleware' => \App\Http\Middleware\SetCity::class
+    ], 
+    function(){
+        Route::get('/', function () {
+            print_r(request()->all());
+        });
+    }
+);
+
+

@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\API\v1\Controllers\CityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::group([
+    'middleware' => [
+        'auth:sanctum'
+    ],
+    'prefix' => 'v1',
+], function () {
+    Route::prefix('/city')->group(function(){
+        Route::post('/add', [CityController::class, 'add'])->name('add');
+        Route::delete('/delete/{id}', [CityController::class, 'delete'])->name('delete');
+    })->name('city.');
+})->name('api.');

@@ -185,4 +185,6 @@ return [
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
+    'city_source' => env('CITY_SOURCE', 'https://api.hh.ru/areas')
+
 ];
